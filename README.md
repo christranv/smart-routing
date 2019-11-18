@@ -1,2 +1,2 @@
-# smart-routing
-Smart navigator help avoid traffic jam!
+# Smart Routing Project
+> Smart navigator app help avoid traffic jam
