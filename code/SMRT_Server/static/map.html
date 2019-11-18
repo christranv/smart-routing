@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Administrator</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.css' rel='stylesheet' />
+	<style type="text/css">
+		body {
+			color: #566787;
+			background: #f5f5f5;
+			font-family: 'Varela Round', sans-serif;
+			font-size: 13px;
+		}
+
+		.table-wrapper {
+			width: calc(100% - 250px);
+			background: #fff;
+			padding: 20px 25px;
+			box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+		}
+
+		.table-title {
+			padding-bottom: 15px;
+			background: #435d7d;
+			color: #fff;
+			padding: 16px 30px;
+			margin: -20px -25px 10px;
+		}
+
+		.table-title h2 {
+			margin: 5px 0 0;
+			font-size: 24px;
+		}
+
+		.table-title .btn-group {
+			float: right;
+		}
+
+		.table-title .btn {
+			color: #fff;
+			float: right;
+			font-size: 13px;
+			border: none;
+			min-width: 50px;
+			border-radius: 2px;
+			border: none;
+			outline: none !important;
+			margin-left: 10px;
+		}
+
+		.table-title .btn i {
+			float: left;
+			font-size: 21px;
+			margin-right: 5px;
+		}
+
+		.table-title .btn span {
+			float: left;
+			margin-top: 2px;
+		}
+
+		table.table tr th,
+		table.table tr td {
+			border-color: #e9e9e9;
+			padding: 12px 15px;
+			vertical-align: middle;
+		}
+
+		table.table tr th:first-child {
+			width: 60px;
+		}
+
+		table.table tr th:last-child {
+			width: 100px;
+		}
+
+		table.table-striped tbody tr:nth-of-type(odd) {
+			background-color: #fcfcfc;
+		}
+
+		table.table-striped.table-hover tbody tr:hover {
+			background: #f5f5f5;
+		}
+
+		table.table th i {
+			font-size: 13px;
+			margin: 0 5px;
+			cursor: pointer;
+		}
+
+		table.table td:last-child i {
+			opacity: 0.9;
+			font-size: 22px;
+			margin: 0 5px;
+		}
+
+		table.table td a {
+			font-weight: bold;
+			color: #566787;
+			display: inline-block;
+			text-decoration: none;
+			outline: none !important;
+		}
+
+		table.table td a:hover {
+			color: #2196F3;
+		}
+
+		table.table td a.edit {
+			color: #FFC107;
+		}
+
+		table.table td a.delete {
+			color: #F44336;
+		}
+
+		table.table td i {
+			font-size: 19px;
+		}
+
+		table.table .avatar {
+			border-radius: 50%;
+			vertical-align: middle;
+			margin-right: 10px;
+		}
+
+		.pagination {
+			float: right;
+			margin: 0 0 5px;
+		}
+
+		.pagination li a {
+			border: none;
+			font-size: 13px;
+			min-width: 30px;
+			min-height: 30px;
+			color: #999;
+			margin: 0 2px;
+			line-height: 30px;
+			border-radius: 2px !important;
+			text-align: center;
+			padding: 0 6px;
+		}
+
+		.pagination li a:hover {
+			color: #666;
+		}
+
+		.pagination li.active a,
+		.pagination li.active a.page-link {
+			background: #03A9F4;
+		}
+
+		.pagination li.active a:hover {
+			background: #0397d6;
+		}
+
+		.pagination li.disabled i {
+			color: #ccc;
+		}
+
+		.pagination li i {
+			font-size: 16px;
+			padding-top: 6px
+		}
+
+		.hint-text {
+			float: left;
+			margin-top: 10px;
+			font-size: 13px;
+		}
+
+		/* Custom checkbox */
+		.custom-checkbox {
+			position: relative;
+		}
+
+		.custom-checkbox input[type="checkbox"] {
+			opacity: 0;
+			position: absolute;
+			margin: 5px 0 0 3px;
+			z-index: 9;
+		}
+
+		.custom-checkbox label:before {
+			width: 18px;
+			height: 18px;
+		}
+
+		.custom-checkbox label:before {
+			content: '';
+			margin-right: 10px;
+			display: inline-block;
+			vertical-align: text-top;
+			background: white;
+			border: 1px solid #bbb;
+			border-radius: 2px;
+			box-sizing: border-box;
+			z-index: 2;
+		}
+
+		.custom-checkbox input[type="checkbox"]:checked+label:after {
+			content: '';
+			position: absolute;
+			left: 6px;
+			top: 3px;
+			width: 6px;
+			height: 11px;
+			border: solid #000;
+			border-width: 0 3px 3px 0;
+			transform: inherit;
+			z-index: 3;
+			transform: rotateZ(45deg);
+		}
+
+		.custom-checkbox input[type="checkbox"]:checked+label:before {
+			border-color: #03A9F4;
+			background: #03A9F4;
+		}
+
+		.custom-checkbox input[type="checkbox"]:checked+label:after {
+			border-color: #fff;
+		}
+
+		.custom-checkbox input[type="checkbox"]:disabled+label:before {
+			color: #b8b8b8;
+			cursor: auto;
+			box-shadow: none;
+			background: #ddd;
+		}
+
+		/* Modal styles */
+		.modal .modal-dialog {
+			max-width: 400px;
+		}
+
+		.modal .modal-header,
+		.modal .modal-body,
+		.modal .modal-footer {
+			padding: 20px 30px;
+		}
+
+		.modal .modal-content {
+			border-radius: 3px;
+		}
+
+		.modal .modal-footer {
+			background: #ecf0f1;
+			border-radius: 0 0 3px 3px;
+		}
+
+		.modal .modal-title {
+			display: inline-block;
+		}
+
+		.modal .form-control {
+			border-radius: 2px;
+			box-shadow: none;
+			border-color: #dddddd;
+		}
+
+		.modal textarea.form-control {
+			resize: vertical;
+		}
+
+		.modal .btn {
+			border-radius: 2px;
+			min-width: 100px;
+		}
+
+		.modal form label {
+			font-weight: normal;
+		}
+
+		.root {
+			display: flex;
+			align-items: flex-start;
+			align-content: flex-start;
+		}
+
+		.menubar {
+			width: 250px;
+			align-self: stretch;
+			overflow: hidden;
+		}
+
+		.menutitle {
+			color: #435d7d;
+			text-align: center;
+			background: white;
+			height: 65px;
+		}
+
+		.menutitle h2 {
+			margin: 0px !important;
+			line-height: 65px;
+		}
+
+		.menulist {
+			background-color: #435d7d;
+			height: 100%;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.menulist ul>li {
+			display: block;
+			height: 45px;
+			line-height: 45px;
+		}
+
+		.menulist ul>li>a {
+			color: white;
+			font-size: 16px;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		#map {
+			position: absolute;
+			top: 63px;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+		}
+
+		.mapboxgl-popup {
+			max-width: 400px;
+			font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+		}
+
+		.direction {
+			position: absolute;
+			z-index: 99999;
+			top: 88px;
+			left: 25px;
+		}
+
+		.direction input {
+			display: block;
+			height: 45px;
+			margin-bottom: 7px;
+			border: 0px;
+			border-radius: 5px;
+			width: 300px;
+			padding-left: 10px;
+			-webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+			-moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+			box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+			outline: none;
+		}
+
+		.direction button {
+			height: 35px;
+			padding: 0px 20px;
+			border: none;
+			font-weight: bold;
+			color: white;
+			background: green;
+		}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			// Activate tooltip
+			$('[data-toggle="tooltip"]').tooltip();
+
+			// Select/Deselect checkboxes
+			var checkbox = $('table tbody input[type="checkbox"]');
+			$("#selectAll").click(function () {
+				if (this.checked) {
+					checkbox.each(function () {
+						this.checked = true;
+					});
+				} else {
+					checkbox.each(function () {
+						this.checked = false;
+					});
+				}
+			});
+			checkbox.click(function () {
+				if (!this.checked) {
+					$("#selectAll").prop("checked", false);
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div class="root">
+		<div class="menubar">
+			<div class="menutitle">
+				<h2>Administrator</h2>
+			</div>
+			<div class="menulist">
+				<ul>
+					<li><a href="index.html">Management</a></li>
+					<li><a href="map.html">Map</a></li>
+					<li><a href="logout">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="table-wrapper" style="position:relative;height: 100vh;">
+			<div class="table-title">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2>Cameras's <b>Map</b></h2>
+					</div>
+				</div>
+			</div>
+			<div id='map'></div>
+			<div class="direction">
+				<form action="" onsubmit="return false;">
+					<input type="text" id="areaFrom" placeholder="Starting Position">
+					<input type="text" id="areaTo" placeholder="Target Position">
+					<button onclick="drawdirection()">Find</button>
+				</form>
+			</div>
+			<style>
+				.setsume {
+					position: absolute;
+					z-index: 99999;
+					bottom: 88px;
+					right: 125px;
+					opacity: 0.8;
+					background: white;
+					padding:10px;
+					width:250px;
+					border-radius: 10px;
+				}
+				.setsume ul{
+					padding:0
+				}
+				.setsume li{
+					display: flex;
+					height: 35px;
+				}
+				.setsume li p{
+					height: 10px;
+					border-radius: 48px;
+					width:70%;
+					background: green;
+					margin-bottom: 0px;
+				}
+				.setsume li p.green{
+					background:green;
+				}
+				.setsume li p.gray{
+					background:gray;
+				}
+				.setsume li p.red{
+					background:red;
+				}
+				.setsume li p.yellow{
+					background:yellow;
+				} 
+				.setsume b{
+					white-space: nowrap;
+					padding-left: 10px;
+					line-height: 10px;
+					text-transform: capitalize
+				}
+				
+			</style>
+			<div class="setsume">
+				<ul>
+					<li>Explain:</li>
+					<li><p class="green"></p><b>Low traffic</b></li>
+					<li><p class="yellow"></p><b>Normal traffic</b></li>
+					<li><p class="red"></p><b>High traffic but can go</b></li>
+					<li><p class="gray"></p><b>High Traffic</b></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Edit Modal HTML -->
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"
+	integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+<script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
+<script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+<script>
+	var layer = []
+	var areaFrom;
+	var areaTo;
+	mapboxgl.accessToken = 'pk.eyJ1IjoidnVjbXMwMjAyIiwiYSI6ImNqenBvanFlczBkeGwzbm1zNjd5a2d2azQifQ.jV9u75z5Wtxt1wNOEw9FRQ';
+	var map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/mapbox/streets-v11',
+		center:  [108.2090768,16.0586493],
+		zoom: 15
+	});
+	drawCameras()
+	setInterval(() => {
+		layer.forEach(v => {
+			try {
+				map.removeLayer(v)
+				map.removeSource(v)
+			} catch (e) {
+				//do notthing
+			}
+		})
+		layer = []
+		setTimeout(drawCameras, 1000);
+	}, 10000);
+	function drawCameras() {
+		var resturl = 'http://0.0.0.0:9999/api/cameras'
+		axios.get(resturl).then(result => {
+			data = result.data;
+			console.log(data)
+			data.map(v => {
+				let ids = v.id
+				layer.push("route" + ids)
+				axios.get('http://0.0.0.0:9999/api/get_point/' + ids.split(':')[0] + '/' + ids.split(':')[1]).then(line => {
+					line = line.data
+					line[0].reverse()
+					line[1].reverse()
+					if (v.status > 66) {
+
+						//layer.push('point' + ids)
+						if (v.can_go == "yes") {
+							map.addLayer({
+								"id": "route" + ids,
+								"type": "line",
+								"source": {
+									"type": "geojson",
+									"data": {
+										"type": "Feature",
+										"properties": {},
+										"geometry": {
+											"type": "LineString",
+											"coordinates": line
+										}
+									}
+								},
+								"layout": {
+									"line-join": "round",
+									"line-cap": "round"
+								},
+								"paint": {
+									"line-color": "red",
+									"line-width": 8
+								}
+							})
+							// 	map.loadImage('./assets/img/superhard.png', function (error, image) {
+							// 		if (error) throw error;
+							// 		map.addImage('cat' + ids, image);
+							// 		map.addLayer({
+							// 			"id": "point" + ids,
+							// 			"type": "symbol",
+							// 			"source": {
+							// 				"type": "geojson",
+							// 				"data": {
+							// 					"type": "FeatureCollection",
+							// 					"features": [{
+							// 						"type": "Feature",
+							// 						"geometry": {
+							// 							"type": "Point",
+							// 							"coordinates": [(line[0][0] + line[1][0]) / 2, (line[0][1] + line[1][1]) / 2]
+							// 						}
+							// 					}]
+							// 				}
+							// 			},
+							// 			"layout": {
+							// 				"icon-image": "cat" + ids,
+							// 				"icon-size": 0.05
+							// 			}
+							// 		});
+							// 	});
+						} else {
+							map.addLayer({
+								"id": "route" + ids,
+								"type": "line",
+								"source": {
+									"type": "geojson",
+									"data": {
+										"type": "Feature",
+										"properties": {},
+										"geometry": {
+											"type": "LineString",
+											"coordinates": line
+										}
+									}
+								},
+								"layout": {
+									"line-join": "round",
+									"line-cap": "round"
+								},
+								"paint": {
+									"line-color": "gray",
+									"line-width": 8
+								}
+							})
+							// 	map.loadImage('./assets/img/hard.png', function (error, image) {
+							// 		if (error) throw error;
+							// 		map.addImage('cat' + ids, image);
+							// 		map.addLayer({
+							// 			"id": "point" + ids,
+							// 			"type": "symbol",
+							// 			"source": {
+							// 				"type": "geojson",
+							// 				"data": {
+							// 					"type": "FeatureCollection",
+							// 					"features": [{
+							// 						"type": "Feature",
+							// 						"geometry": {
+							// 							"type": "Point",
+							// 							"coordinates": [(line[0][0] + line[1][0]) / 2, (line[0][1] + line[1][1]) / 2]
+							// 						}
+							// 					}]
+							// 				}
+							// 			},
+							// 			"layout": {
+							// 				"icon-image": "cat" + ids,
+							// 				"icon-size": 0.05
+							// 			}
+							// 		});
+							// 	});
+						}
+					} else if (v.status > 33) {
+
+						map.addLayer({
+							"id": "route" + ids,
+							"type": "line",
+							"source": {
+								"type": "geojson",
+								"data": {
+									"type": "Feature",
+									"properties": {},
+									"geometry": {
+										"type": "LineString",
+										"coordinates": line
+									}
+								}
+							},
+							"layout": {
+								"line-join": "round",
+								"line-cap": "round"
+							},
+							"paint": {
+								"line-color": "yellow",
+								"line-width": 8
+							}
+						})
+						// layer.push('point' + ids)
+						// map.loadImage('assets/img/normal.png', function (error, image) {
+						// 	if (error) throw error;
+						// 	map.addImage('cat' + ids, image);
+						// 	map.addLayer({
+						// 		"id": "point" + ids,
+						// 		"type": "symbol",
+						// 		"source": {
+						// 			"type": "geojson",
+						// 			"data": {
+						// 				"type": "FeatureCollection",
+						// 				"features": [{
+						// 					"type": "Feature",
+						// 					"geometry": {
+						// 						"type": "Point",
+						// 						"coordinates": [ (line[0][0] + line[1][0]) / 2,(line[0][1] + line[1][1]) / 2,]
+						// 					}
+						// 				}]
+						// 			}
+						// 		},
+						// 		"layout": {
+						// 			"icon-image": "cat" + ids,
+						// 			"icon-size": 0.05
+						// 		}
+						// 	});
+						// });
+					} else {
+						map.addLayer({
+							"id": "route" + ids,
+							"type": "line",
+							"source": {
+								"type": "geojson",
+								"data": {
+									"type": "Feature",
+									"properties": {},
+									"geometry": {
+										"type": "LineString",
+										"coordinates": line
+									}
+								}
+							},
+							"layout": {
+								"line-join": "round",
+								"line-cap": "round"
+							},
+							"paint": {
+								"line-color": "green",
+								"line-width": 8
+							}
+						})
+						// layer.push('point' + ids)
+						// map.loadImage('./assets/img/easy.png', function (error, image) {
+						// 	if (error) throw error;
+						// 	map.addImage('cat' + ids, image);
+						// 	map.addLayer({
+						// 		"id": "point" + ids,
+						// 		"type": "symbol",
+						// 		"source": {
+						// 			"type": "geojson",
+						// 			"data": {
+						// 				"type": "FeatureCollection",
+						// 				"features": [{
+						// 					"type": "Feature",
+						// 					"geometry": {
+						// 						"type": "Point",
+						// 						"coordinates": [ (line[0][0] + line[1][0]) / 2,(line[0][1] + line[1][1]) / 2]
+						// 					}
+						// 				}]
+						// 			}
+						// 		},
+						// 		"layout": {
+						// 			"icon-image": "cat" + ids,
+						// 			"icon-size": 0.05
+						// 		}
+						// 	});
+						// });
+					}
+				})
+
+			})
+		})
+
+	}
+
+	window.addEventListener("hashchange", () => {
+		window.location.reload()
+	}, false);
+	var url = 'http://0.0.0.0:9999/api/auth'
+	axios.get(url).then((data) => {
+		if (!data.data.success) {
+			window.location.href = "login.html"
+		}
+	})
+	async function drawdirection() {
+		await axios.get('https://nominatim.openstreetmap.org/search?q=' + document.querySelector('#areaFrom').value + '&format=json').then((data) => {
+			for (x of data.data) {
+				if (x.display_name.indexOf("Đà Nẵng") > -1) {
+					areaFrom = [x.lat, x.lon]
+					console.log(areaFrom)
+					break;
+				}
+			}
+		})
+		await axios.get('https://nominatim.openstreetmap.org/search?q=' + document.querySelector('#areaTo').value + '&format=json').then((data) => {
+			for (x of data.data) {
+				if (x.display_name.indexOf("Đà Nẵng") > -1) {
+					areaTo = [x.lat, x.lon]
+					console.log(areaTo)
+					break;
+				}
+			}
+		})
+		await axios.get('http://0.0.0.0:9999/api/routing/' + areaFrom.join() + '/' + areaTo.join()).then(data => {
+			line = data.data
+			for (i = 0; i < line.length; i++) {
+				temp = line[i][0]
+				line[i][0] = line[i][1]
+				line[i][1] = temp
+			}
+			map.addLayer({
+				"id": "route",
+				"type": "line",
+				"source": {
+					"type": "geojson",
+					"data": {
+						"type": "Feature",
+						"properties": {},
+						"geometry": {
+							"type": "LineString",
+							"coordinates": line
+						}
+					}
+				},
+				"layout": {
+					"line-join": "round",
+					"line-cap": "round"
+				},
+				"paint": {
+					"line-color": "red",
+					"line-width": 8
+				}
+			})
+
+		})
+
+	}
+</script>
+
+</html>

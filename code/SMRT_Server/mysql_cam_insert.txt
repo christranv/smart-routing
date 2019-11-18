@@ -1,0 +1,40 @@
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('6512003604:6555689171','Nguyễn Văn Linh','50','camera01',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('1334198766:6530432128','Nguyễn Văn Linh','50','camera02',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('1334198764:6334716713','Nguyễn Tri Phương','50','camera03',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('1333394789:6530229488','Hàm Nghi','50','camera04',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('3763846124:3763846125','Ông Ích Khiêm','50','camera05',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('6045271333:6045271334','Phan Châu Trinh','50','camera06',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('1333394780:6040694717','Cô Giang','50','camera07',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('2990909293:6509553504','Võ Văn Kiệt','50','camera08',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('420248838:6542997934','Hoàng Diệu','50','camera09',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('1333379818:1333379873','Chu Văn An','50','camera10',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('1334198615:6553521255','Lê Đình Lý','50','camera11',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('420248844:6555742927','Triệu Nữ Vương','50','camera12',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('6334716711:6334716714','Kiệt 10 Phạm Văn Nghi','50','camera13',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('6555934466:6558655912','Phạm Văn Nghi','50','camera14',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('1334198672:6555985176','Đỗ Quang','50','camera15',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('1333361872:1333361895','Hoàng Diệu','50','camera16',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('420248791:6543022734','Hoàng Văn Thụ','50','camera17',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('420248889:6532463080','Trưng Nữ Vương','50','camera18',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('3763846132:3763846133','Ông Ích Khiêm','50','camera19',7);
+INSERT INTO camera (id, street, area, camera_name, street_width)
+VALUES ('1333361946:6543169612','Nguyễn Hoàng','50','camera20',7);

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Administrator</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.css" integrity="sha256-2bAj1LMT7CXUYUwuEnqqooPb1W0Sw0uKMsqNH0HwMa4=" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js" integrity="sha256-7OUNnq6tbF4510dkZHCRccvQfRlV3lPpBTJEljINxao=" crossorigin="anonymous"></script>
+        <style>
+                *{
+                        border:0;
+                        padding:0;
+                        box-sizing: border-box
+                }
+        body {
+                color: #566787;
+		font-family: 'Varela Round', sans-serif;
+		font-size: 13px;
+                background: white;
+                width:100%;
+        }
+        .root{
+                display: flex;
+                justify-content: center
+        }
+        .loginbox{
+                border:1px solid #ddd;
+                padding:10px;
+                display:inline-block;
+                margin: 10px auto;
+                border-radius: 5px;
+                width: 300px;
+                text-align: center;
+        }
+        .formlog{
+
+        }
+        .formlog input[type=text],input[type=password]{
+                border:none;
+                height: 45px;
+                width:250px;
+                outline:none;
+                border-radius: 3px;
+                border:1px solid #ddd;
+                padding:0px 15px;
+                margin: 5px 0px;
+                margin-top: 0px;
+                padding-right: 20px;
+        }
+        .formlog input[type=text]{
+                background-image: url('assets/img/avatar.png');
+                background-repeat: no-repeat;
+                background-position-y: calc((45px - 16px)/2);   
+                background-position-x: calc(100% - 4px);
+        }
+        .formlog input[type=password]{
+                background-image: url('assets/img/key.png');
+                background-repeat: no-repeat;
+                background-position-y: calc((45px - 16px)/2);   
+                background-position-x: calc(100% - 4px);
+        }
+        .avt{
+                position: relative;
+                display: inline-block;  
+        }
+        .avt img{
+                width:100px;
+                height: 100px;
+        }
+        .avt::before{
+                content: '';
+                display: block;
+                height: 2px;
+                width:calc((300px - 100px - 10px)/2);
+                position: absolute;
+                background-color:#ddd;
+                right:100px;
+                top:calc((100% - 2px) /2)
+        }
+        .avt::after{
+                content: '';
+                display: block;
+                height: 2px;
+                width:calc((300px - 100px - 10px)/2);
+                position: absolute;
+                background-color:#ddd;
+                left:100px;
+                top:calc((100% - 2px) /2)  
+        }
+        .btnlogin{
+                height: 45px;
+                width:250px;
+                margin:10px 0px;
+                border:none;
+                border-radius: 3px;
+                border:1px solid #ddd;
+                background-color: #566787;
+                color:white;
+                font-size: 1.5em;
+        }
+        </style>
+</head>
+<body>
+        <div class="root">
+                <div class="loginbox">
+                        <div class="logo">
+                                <h1 style="">SMRT</h1>
+                        </div>
+                        <div class="avt">
+                                <img src="assets/img/unknown.png" alt="">
+                        </div>
+                        <div class="formlog">
+                                <h4>Login</h4>
+                                <form action="" onsubmit="return false">
+                                        <input type="text" placeholder="Username" id="username" autocomplete="off"><br>
+                                        <input type="password" placeholder="Password" id="password"><br>
+                                        <div style="text-align:left;padding-left: 10px;">
+                                                <input type="checkbox" > <span >Remember me</span>
+                                        </div>
+                                        <button class="btnlogin" onclick="checkLogin()">Login</button>
+                                </form>
+                        </div>
+                </div>
+        </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+<script>
+var url = 'http://0.0.0.0:9999/api/auth'
+axios.get(url).then((data)=>{
+        if(data.data.success){
+                window.location.href = "index.html"
+        }
+})
+function checkLogin(){
+        let usr = document.querySelector('#username').value;
+        let pwd = document.querySelector('#password').value;
+        axios.post(url,{
+                username:usr,
+	        password:pwd
+        }).then((data)=>{
+                if(!data.data.success){
+                        Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        })
+                }else{
+                        window.location.href = "index.html"
+                }
+        })
+}
+
+</script>
+</html>
