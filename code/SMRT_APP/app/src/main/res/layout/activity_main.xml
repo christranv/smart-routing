@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+  <org.osmdroid.views.MapView
+      android:id="@+id/mapview"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" >
+
+  </org.osmdroid.views.MapView>
+
+  <ImageButton
+      android:id="@+id/optionButton"
+      android:layout_width="40dp"
+      android:layout_height="36dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginBottom="8dp"
+      android:background="@drawable/bar"
+      android:contentDescription="@string/contentDesc"
+      android:elevation="1dp"
+      android:stateListAnimator="@null"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/mapview" />
+
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/routingInfoLayout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.85">
+
+    <ImageView
+        android:id="@+id/startIcon"
+        android:layout_width="39dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/contentDesc"
+        android:elevation="2dp"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/startTextView1"
+        app:layout_constraintStart_toStartOf="@+id/startTextView1"
+        app:layout_constraintTop_toTopOf="@+id/startTextView1"
+        app:srcCompat="@drawable/start" />
+
+    <ImageView
+        android:id="@+id/endIcon"
+        android:layout_width="37dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/contentDesc"
+        android:elevation="2dp"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/endTextView2"
+        app:layout_constraintStart_toStartOf="@+id/endTextView2"
+        app:layout_constraintTop_toTopOf="@+id/endTextView2"
+        app:srcCompat="@drawable/marker" />
+
+    <TextView
+        android:id="@+id/startTextView1"
+        android:layout_width="306dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_corner"
+        android:elevation="1dp"
+        android:ellipsize="end"
+        android:focusableInTouchMode="false"
+        android:hint="@string/from"
+        android:maxLines="1"
+        android:paddingLeft="65dp"
+        android:paddingTop="11dp"
+        android:text=""
+        android:textColor="#000000"
+        android:textColorHint="#70030000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.843" />
+
+    <TextView
+        android:id="@+id/endTextView2"
+        android:layout_width="306dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_corner"
+        android:elevation="1dp"
+        android:ellipsize="end"
+        android:hint="@string/to"
+        android:maxLines="1"
+        android:paddingLeft="65dp"
+        android:paddingTop="11dp"
+        android:text=""
+        android:textColor="#000000"
+        android:textColorHint="#70030000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startTextView1" />
+  </android.support.constraint.ConstraintLayout>
+
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/choosePointLayout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="invisible">
+
+    <ImageView
+        android:id="@+id/choosePointIcon"
+        android:layout_width="55dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/contentDesc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.456"
+        app:srcCompat="@drawable/marker" />
+
+    <Button
+        android:id="@+id/okButton"
+        android:layout_width="77dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_button"
+        android:text="@string/ok"
+        android:textColor="@color/light"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.972"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974" />
+  </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

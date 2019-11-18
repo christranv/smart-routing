@@ -1,0 +1,2 @@
+include ':osm4smrt', ':smrt'
+project(':smrt').projectDir = new File('app')

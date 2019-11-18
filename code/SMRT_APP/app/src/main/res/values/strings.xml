@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SMRT</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="ok">OK</string>
+    <string name="typeInfo">Type information</string>
+    <string name="selectOnMap">Select on map</string>
+    <string name="contentDesc">desc</string>
+</resources>
