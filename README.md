@@ -1,4 +1,4 @@
-# My Hackathon Project: Smart Routing Project in (2019)
+# Smart Routing Project: My Hackathon Project (2019)
 > Smart navigator app helps avoid traffic jam
 
 [![version](https://img.shields.io/badge/version-1.0-green.svg?style=flat-square)](https://semver.org)
